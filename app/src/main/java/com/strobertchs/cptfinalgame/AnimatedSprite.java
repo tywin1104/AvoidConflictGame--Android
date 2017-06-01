@@ -1,6 +1,5 @@
 package com.strobertchs.cptfinalgame;
 
-
 /**
  * Created by eric on 2017-05-09.
  * Abstract class outlining the attributes & behaviours of moving game pieces
