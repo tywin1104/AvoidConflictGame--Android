@@ -95,6 +95,7 @@ class GameView extends SurfaceView implements Runnable {
     }
 
 
+
     public void controlFPS()
     {
         long timeThisFrame = (System.currentTimeMillis() - lastFrameTime);
