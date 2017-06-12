@@ -37,7 +37,7 @@ class GameView extends SurfaceView implements Runnable {
     Canvas canvas;
     Thread ourThread = null;
     SurfaceHolder ourHolder;
-    volatile boolean playingSquash;
+    volatile boolean playPeaceGame;
     Paint paint;
 
     long lastFrameTime;
@@ -68,7 +68,7 @@ class GameView extends SurfaceView implements Runnable {
 
     @Override
     public void run() {
-        while (playingSquash) {
+        while (playPeaceGame) {
             // updateCourt();    // Deals with Collision etc.
             drawCourt();
             controlFPS();
@@ -138,7 +138,7 @@ class GameView extends SurfaceView implements Runnable {
     */
 
     public void pause() {
-        playingSquash = false;
+        playPeaceGame = false;
         try {
             ourThread.join();
         } catch (InterruptedException e) {
@@ -146,7 +146,7 @@ class GameView extends SurfaceView implements Runnable {
     }
 
     public void resume() {
-        playingSquash = true;
+        playPeaceGame = true;
         ourThread = new Thread(this);
         ourThread.start();
     }
