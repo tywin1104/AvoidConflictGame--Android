@@ -149,6 +149,17 @@ class GameView extends SurfaceView implements Runnable {
 
             canvas.drawText("Score:" + score + " fps:" + fps, 20, 40, paint);
 
+            for (int i = 0; i < enemies.size(); i ++)
+            {
+                enemies.get(i).draw(canvas);
+            }
+
+            //Draw the main player
+            player.draw(canvas);
+
+            //Draw the ball
+            bullet.draw(canvas);
+
             ourHolder.unlockCanvasAndPost(canvas);
 
 
