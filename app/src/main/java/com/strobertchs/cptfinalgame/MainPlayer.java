@@ -12,7 +12,8 @@ import java.util.ArrayList;
  * Created by supriyamutharasan on 2017-06-12.
  */
 
-public class MainPlayer extends AnimatedSprite {
+public class MainPlayer extends AnimatedSprite
+{
 
     protected Bitmap bitmap;
     protected int frameNumber;
@@ -27,7 +28,8 @@ public class MainPlayer extends AnimatedSprite {
         super();
     }
 
-    public void updatePosition() {
+    public void updatePosition()
+    {
 
     }
 
