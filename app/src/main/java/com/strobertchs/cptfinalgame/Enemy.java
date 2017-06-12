@@ -9,8 +9,15 @@ import android.graphics.Color;
 
 public class Enemy extends Sprite {
 
-    public Enemy() {
+    public Enemy(int enemy_width, int enemy_height, int positionX, int positionY)
+    {
         super();
+
+        setPositionX(positionX);
+        setPositionY(positionY);
+
+        setWidth(enemy_width);
+        setHeight(enemy_height);
     }
 
     public void draw(Canvas source_canvas) {

@@ -40,8 +40,24 @@ class GameView extends SurfaceView implements Runnable {
     volatile boolean playPeaceGame;
     Paint paint;
 
+
+    int enemyBreadth = 200;
+    int ememyHeight = 100;
+    int enemyGapX = 100;
+    int enemyGapY = 100;
+    int y_offset = 100;
+    int x_offset = 50;
+
+
+    ArrayList<Enemy> enemies;
+
+    MainPlayer player;
+    Bullet bullet;
+
+
     long lastFrameTime;
     int fps;
+    int lives;
     int score;
 
     int screenWidth;
@@ -59,10 +75,36 @@ class GameView extends SurfaceView implements Runnable {
         ourHolder = getHolder();
         paint = new Paint();
 
+        bullet = new Bullet(context, screenWidth, screenHeight);
+        bullet.moveDown();  // initialize bullet to move downwards towards the player
+
+        player = new MainPlayer(context, sScreenHeight, sScreenWidth);
+
+        enemies = new ArrayList<Enemy>();
+        enemies = generateEnemy();
+
+        lives = 3;
+        score = 0;
+
         Resources res = getResources();
         bitmap = BitmapFactory.decodeResource(res, R.drawable.grass);
 
-        score = 0;
+        //Send the ball in the random horizontal direction
+        Random randomNumber = new Random();
+        int ballDirection = randomNumber.nextInt(3);
+        switch(ballDirection){
+            case 0:
+                bullet.moveLeft();
+                break;
+
+            case 1:
+                bullet.moveRight();
+                break;
+
+            case 2:
+                bullet.moveStraight();
+                break;
+        }
 
     }
 
@@ -74,6 +116,25 @@ class GameView extends SurfaceView implements Runnable {
             controlFPS();
         }
     }
+
+    public ArrayList<Enemy> generateEnemy()
+    {
+        for(int i=0; i < 1; i++)
+        {
+            int x = x_offset;
+            int y = i * (ememyHeight + enemyGapY) + y_offset;
+
+            while(x < screenWidth)
+            {
+                enemies.add(new Enemy(enemyBreadth, ememyHeight, x, y));
+                x += enemyBreadth + enemyGapX;
+            }
+
+        }
+
+        return enemies;
+    }
+
 
     public void drawCourt() {
         if (ourHolder.getSurface().isValid()) {
