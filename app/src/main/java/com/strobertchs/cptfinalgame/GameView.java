@@ -14,11 +14,8 @@ import android.content.Context;
 import android.content.res.AssetFileDescriptor;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Paint;
 import android.media.AudioManager;
 import android.media.SoundPool;
 import android.view.MotionEvent;
@@ -87,7 +84,7 @@ class GameView extends SurfaceView implements Runnable {
         score = 0;
 
         Resources res = getResources();
-        bitmap = BitmapFactory.decodeResource(res, R.drawable.grass);
+        bitmap = BitmapFactory.decodeResource(res, R.drawable.grass_14);
 
         //Send the ball in the random horizontal direction
         Random randomNumber = new Random();
@@ -188,12 +185,12 @@ class GameView extends SurfaceView implements Runnable {
 
     }
 
-    /*
+
     @Override
     public boolean onTouchEvent(MotionEvent motionEvent) {
         switch (motionEvent.getAction() & MotionEvent.ACTION_MASK) {
             case MotionEvent.ACTION_DOWN:
-                /*
+
                 if (motionEvent.getX() >= screenWidth / 2) {
                     player.moveRight();
                 } else {
@@ -208,7 +205,8 @@ class GameView extends SurfaceView implements Runnable {
         }
         return true;
     }
-    */
+
+
 
     public void pause() {
         playPeaceGame = false;

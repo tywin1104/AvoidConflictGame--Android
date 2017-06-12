@@ -2,11 +2,10 @@ package com.strobertchs.cptfinalgame;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 
-import java.util.ArrayList;
+
 
 /**
  * Created by supriyamutharasan on 2017-06-12.
@@ -22,7 +21,6 @@ public class MainPlayer extends AnimatedSprite
     protected int numFrames;
     protected int framesPerRow;
     protected Rect rectToBeDrawn;
-    protected ArrayList<Bitmap> asteroids;
 
     public MainPlayer(Context context, int screen_height, int screen_width)
     {
@@ -42,6 +40,15 @@ public class MainPlayer extends AnimatedSprite
      * turn off horizontal movement flags
      */
     public void moveStraight()
+    {
+        setMovingLeft(false);
+        setMovingRight(false);
+    }
+
+    /**
+     * stop horizontal movement
+     */
+    public void stop()
     {
         setMovingLeft(false);
         setMovingRight(false);
