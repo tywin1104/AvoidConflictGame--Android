@@ -25,8 +25,8 @@ public class Bullet extends AnimatedSprite {
     public Bullet(Context context, int screen_width, int screen_height) {
         super();
 
-        setWidth(screen_width / 20);
-        setHeight(screen_width / 20);
+        setWidth(screen_width / 15);
+        setHeight(screen_width / 15);
         setPositionX(screen_height / 2);    // default the bulltet to be in the horizontal middle
         setPositionY(400);    // default the bullet to be at specific coordinate
 
@@ -89,6 +89,8 @@ public class Bullet extends AnimatedSprite {
                 getPositionY() + getWidth());
 
         //System.out.println("destRect: " + destRect.toString());
+        //show a single image/
+        source_canvas.drawBitmap(bitmap, null, destRect, null);
     }
 
 

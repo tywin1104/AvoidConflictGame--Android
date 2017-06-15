@@ -2,6 +2,7 @@ package com.strobertchs.cptfinalgame;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 
@@ -26,14 +27,20 @@ public class MainPlayer extends AnimatedSprite
     {
         super();
 
-        setWidth(screen_width / 15);
-        setHeight(screen_width / 15);
+        setWidth(screen_width / 10);
+        setHeight(screen_width / 10);
         setPositionX(screen_height / 2);    // default the player to be in the horizontal middle
         setPositionY(screen_height - 100);    // default the player to be at specific coordinate
 
         setHorizontal_amount(12);     // horizontal_amount default to 12 pixels
         setUp_amount(10);             // default up_amount to 10
         setDown_amount(6);            // default down_amount to be 6
+
+        bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.player);
+
+        frameHeight = bitmap.getHeight();
+        frameWidth = bitmap.getWidth();
+
     }
 
     /**
@@ -94,6 +101,8 @@ public class MainPlayer extends AnimatedSprite
                 getPositionY() + getWidth());
 
         //System.out.println("destRect: " + destRect.toString());
+        source_canvas.drawBitmap(bitmap, null, destRect, null);
+
     }
 
 

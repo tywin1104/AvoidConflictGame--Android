@@ -88,8 +88,8 @@ class GameView extends SurfaceView implements Runnable {
 
         //Send the ball in the random horizontal direction
         Random randomNumber = new Random();
-        int ballDirection = randomNumber.nextInt(3);
-        switch(ballDirection){
+        int bulletDirection = randomNumber.nextInt(3);
+        switch(bulletDirection){
             case 0:
                 bullet.moveLeft();
                 break;
@@ -111,6 +111,8 @@ class GameView extends SurfaceView implements Runnable {
             // updateCourt();    // Deals with Collision etc.
             drawCourt();
             controlFPS();
+            bullet.updatePosition();
+            player.updatePosition();
         }
     }
 
