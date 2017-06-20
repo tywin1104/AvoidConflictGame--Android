@@ -194,16 +194,23 @@ class GameView extends SurfaceView implements Runnable {
             case MotionEvent.ACTION_DOWN:
 
                 //right D-pad
-                if (motionEvent.getX() <= screenWidth/2 && motionEvent.getX() >= (screenWidth/2 - screenWidth/6)) {
-                    if (motionEvent.getY() <= (screenHeight - screenHeight/9) && motionEvent.getY() >= (screenHeight - screenHeight/9) - screenHeight/9) {
+                if (motionEvent.getX() <= screenWidth/2 && motionEvent.getX() >= (screenWidth/6 * 2)) {
+                    if (motionEvent.getY() <= (screenHeight - screenHeight/9) && motionEvent.getY() >= (screenHeight/9 * 7)) {
                         player.moveRight();
                     }
                 }
 
                 //left D-pad
                 if (motionEvent.getX() <= screenWidth/6) {
-                    if (motionEvent.getY() <= (screenHeight - screenHeight/9) && motionEvent.getY() >= (screenHeight - screenHeight/9) - screenHeight/9) {
+                    if (motionEvent.getY() <= (screenHeight - screenHeight/9) && motionEvent.getY() >= (screenHeight/9 * 7)) {
                         player.moveLeft();
+                    }
+                }
+
+                //up D-pad
+                if (motionEvent.getX() <= (screenWidth/2 - screenWidth/6) && motionEvent.getX() >= screenWidth/6) {
+                    if (motionEvent.getY() <= (screenHeight/9 * 7) && motionEvent.getY() >= (screenHeight/9 * 6)) {
+                        player.moveUp();
                     }
                 }
 
