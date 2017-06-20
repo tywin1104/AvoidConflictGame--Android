@@ -227,6 +227,7 @@ class GameView extends SurfaceView implements Runnable {
             downDpad.draw(canvas);
             rightDpad.draw(canvas);
             leftDpad.draw(canvas);
+            centreDpad.draw(canvas);
 
             ourHolder.unlockCanvasAndPost(canvas);
 

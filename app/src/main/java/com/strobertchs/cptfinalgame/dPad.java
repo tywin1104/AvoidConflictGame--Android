@@ -1,6 +1,7 @@
 package com.strobertchs.cptfinalgame;
 
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.view.MotionEvent;
 
 /**
@@ -14,6 +15,7 @@ public class dPad extends Sprite {
     {
         super();
 
+        paint.setColor(Color.argb(127, 255, 255, 255));
 
         setPositionX(positionX);
         setPositionY(positionY);
@@ -21,53 +23,6 @@ public class dPad extends Sprite {
         setWidth(dPad_width);
         setHeight(dPad_height);
     }
-
-
-    /**
-    @Override
-    public boolean onTouchEvent(MotionEvent motionEvent, int gameWidth, int gameHeight, MainPlayer player) {
-        switch (motionEvent.getAction() & MotionEvent.ACTION_MASK) {
-            case MotionEvent.ACTION_DOWN:
-
-                //right D-pad
-                if (motionEvent.getX() <= gameWidth/2 && motionEvent.getX() >= (gameWidth/6 * 2)) {
-                    if (motionEvent.getY() <= (gameHeight - gameHeight/9) && motionEvent.getY() >= (gameHeight/9 * 7)) {
-                        player.moveRight();
-                    }
-                }
-
-                //left D-pad
-                if (motionEvent.getX() <= gameWidth/6) {
-                    if (motionEvent.getY() <= (gameHeight - gameHeight/9) && motionEvent.getY() >= (gameHeight/9 * 7)) {
-                        player.moveLeft();
-                    }
-                }
-
-                //up D-pad
-                if (motionEvent.getX() <= (gameWidth/2 - gameWidth/6) && motionEvent.getX() >= gameWidth/6) {
-                    if (motionEvent.getY() <= (gameHeight/9 * 7) && motionEvent.getY() >= (gameHeight/9 * 6)) {
-                        player.moveUp();
-                    }
-                }
-
-                //down D-pad
-                if(motionEvent.getX() <= (gameWidth/6 * 2) && motionEvent.getX() >= gameWidth/6) {
-                    if (motionEvent.getY() <= gameHeight && motionEvent.getY() >= gameHeight - gameHeight/9) {
-                        player.moveDown();
-                    }
-                }
-
-                break;
-
-            case MotionEvent.ACTION_UP:
-                player.stop();
-                break;
-        }
-        return true;
-    }
-    */
-
-
 
     public void draw(Canvas source_canvas) {
         // left dpad
