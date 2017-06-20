@@ -20,6 +20,7 @@ public class dPad extends Sprite {
     }
 
     public void draw(Canvas source_canvas) {
+        //source_canvas.drawRect()
 
     }
 }
