@@ -15,7 +15,7 @@ public class dPad extends Sprite {
     {
         super();
 
-        paint.setColor(Color.argb(127, 255, 255, 255));
+        paint.setColor(Color.argb(63, 105, 105, 105));
 
         setPositionX(positionX);
         setPositionY(positionY);
