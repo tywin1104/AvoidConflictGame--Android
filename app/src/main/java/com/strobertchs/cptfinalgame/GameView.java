@@ -214,6 +214,13 @@ class GameView extends SurfaceView implements Runnable {
                     }
                 }
 
+                //down D-pad
+                if(motionEvent.getX() <= (screenWidth/6 * 2) && motionEvent.getX() >= screenWidth/6) {
+                    if (motionEvent.getY() <= screenHeight && motionEvent.getY() >= screenHeight - screenHeight/9) {
+                        player.moveDown();
+                    }
+                }
+
                 break;
 
             case MotionEvent.ACTION_UP:
