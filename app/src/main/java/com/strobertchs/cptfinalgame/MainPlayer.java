@@ -59,6 +59,8 @@ public class MainPlayer extends AnimatedSprite
     {
         setMovingLeft(false);
         setMovingRight(false);
+        setMovingUp(false);
+        setMovingDown(false);
     }
 
     /**

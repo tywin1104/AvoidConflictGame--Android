@@ -68,6 +68,10 @@ public abstract class AnimatedSprite extends Sprite {
         return movingDown;
     }
 
+    public void setMovingUp(boolean movingUp) { this.movingUp = movingUp; }
+
+    public void setMovingDown(boolean movingDown) { this.movingDown = movingDown; }
+
 
     /**
      * Current value of horizontal movement (number of pixels to move horizontally)
