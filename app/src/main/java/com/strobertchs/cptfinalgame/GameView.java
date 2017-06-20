@@ -79,12 +79,20 @@ class GameView extends SurfaceView implements Runnable {
         bullet = new Bullet(context, screenWidth, screenHeight);
         bullet.moveDown();  // initialize bullet to move downwards towards the player
 
-        leftDpad = new dPad(screenWidth/6, screenHeight/9, screenWidth/6, screenHeight/9 * 8);
-        rightDpad = new dPad(screenWidth/6, screenHeight/9, screenWidth/6 * 3, screenHeight/9 * 8);
-        downDpad = new dPad(screenWidth/6, screenHeight/9, screenWidth/6 * 2, screenHeight/9 * 9);
-        upDpad = new dPad(screenWidth/6, screenHeight/9, screenWidth/6 * 2, screenHeight/9 * 7);
-
         player = new MainPlayer(context, sScreenHeight, sScreenWidth);
+
+        leftDpad = new dPad(screenWidth/6, screenHeight/9, screenWidth/6, screenHeight/9 * 8);
+        leftDpad.onTouchEvent(MainActivity android.view.MotionEvent, screenWidth, screenHeight, player);
+
+        rightDpad = new dPad(screenWidth/6, screenHeight/9, screenWidth/6 * 3, screenHeight/9 * 8);\
+        rightDpad.onTouchEvent(motion, screenWidth, screenHeight, player);
+
+        downDpad = new dPad(screenWidth/6, screenHeight/9, screenWidth/6 * 2, screenHeight/9 * 9);
+        downDpad.onTouchEvent(motion, screenWidth, screenHeight, player);
+
+        upDpad = new dPad(screenWidth/6, screenHeight/9, screenWidth/6 * 2, screenHeight/9 * 7);
+        upDpad.onTouchEvent(motion, screenWidth, screenHeight, player);
+
 
         enemies = new ArrayList<Enemy>();
         enemies = generateEnemy();
