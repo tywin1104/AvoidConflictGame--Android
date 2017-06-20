@@ -193,9 +193,11 @@ class GameView extends SurfaceView implements Runnable {
         switch (motionEvent.getAction() & MotionEvent.ACTION_MASK) {
             case MotionEvent.ACTION_DOWN:
 
-                if (motionEvent.getX() >= screenWidth / 2) {
+                if (motionEvent.getX() <= screenWidth / 2 && motionEvent.getX() >= (screenWidth/2 - screenWidth/6)) {
                     player.moveRight();
-                } else {
+                }
+
+                if (motionEvent.getX() <= screenWidth/6) {
                     player.moveLeft();
                 }
 
