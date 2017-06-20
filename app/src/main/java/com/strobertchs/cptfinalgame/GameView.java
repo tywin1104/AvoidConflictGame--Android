@@ -197,6 +197,60 @@ class GameView extends SurfaceView implements Runnable {
         return enemies;
     }
 
+    public void updateCourt() {
+
+        //hit right of screen
+        if (bullet.getPositionX() + bullet.getWidth() > screenWidth) {
+            bullet.moveLeft();
+        }
+
+
+        //hit left of screen
+        if (bullet.getPositionX() < 0) {
+            bullet.moveRight();
+        }
+
+        //Edge of bullet has hit bottom of screen
+        if (bullet.getPositionY() > screenHeight - bullet.getWidth())
+        {
+
+            /**
+             lives = lives - 1;
+             if (lives == 0) {
+             lives = 3;
+             score = 0;
+
+             }
+             */
+
+            //reset the ball to the top of the screen
+            bullet.setPositionY(400);
+            bullet.setPositionX(screenWidth / 2);
+
+
+            //what horizontal direction should we use
+            //for the next falling ball
+            Random randomNumber = new Random();
+
+            bullet.moveDown();
+
+            int ballDirection = randomNumber.nextInt(3);
+            switch (ballDirection) {
+
+                case 0:
+                    bullet.moveLeft();
+                    break;
+                case 1:
+                    bullet.moveRight();
+                    break;
+                case 2:
+                    bullet.moveStraight();
+                    break;
+            }
+        }
+        bullet.updatePosition();
+    }
+
 
     public void drawCourt() {
         if (ourHolder.getSurface().isValid()) {
