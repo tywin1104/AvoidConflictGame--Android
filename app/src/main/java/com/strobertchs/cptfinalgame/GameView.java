@@ -83,16 +83,16 @@ class GameView extends SurfaceView implements Runnable {
         player = new MainPlayer(context, sScreenHeight, sScreenWidth);
 
         leftDpad = new dPad(screenWidth/6, screenHeight/9, screenWidth/6, screenHeight/9 * 8);
-        leftDpad.onTouchEvent(MainActivity android.view.MotionEvent, screenWidth, screenHeight, player);
+        //leftDpad.onTouchEvent(MainActivity android.view.MotionEvent, screenWidth, screenHeight, player);
 
-        rightDpad = new dPad(screenWidth/6, screenHeight/9, screenWidth/6 * 3, screenHeight/9 * 8);\
-        rightDpad.onTouchEvent(motion, screenWidth, screenHeight, player);
+        rightDpad = new dPad(screenWidth/6, screenHeight/9, screenWidth/6 * 3, screenHeight/9 * 8);
+        //rightDpad.onTouchEvent(motion, screenWidth, screenHeight, player);
 
         downDpad = new dPad(screenWidth/6, screenHeight/9, screenWidth/6 * 2, screenHeight/9 * 9);
-        downDpad.onTouchEvent(motion, screenWidth, screenHeight, player);
+        //downDpad.onTouchEvent(motion, screenWidth, screenHeight, player);
 
         upDpad = new dPad(screenWidth/6, screenHeight/9, screenWidth/6 * 2, screenHeight/9 * 7);
-        upDpad.onTouchEvent(motion, screenWidth, screenHeight, player);
+        //upDpad.onTouchEvent(motion, screenWidth, screenHeight, player);
 
         centreDpad = new dPad(screenWidth/6, screenHeight/9, screenWidth/6 * 2, screenHeight/9 * 8);
 
@@ -135,6 +135,49 @@ class GameView extends SurfaceView implements Runnable {
             player.updatePosition();
         }
     }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent motionEvent) {
+        switch (motionEvent.getAction() & MotionEvent.ACTION_MASK) {
+            case MotionEvent.ACTION_DOWN:
+
+                //right D-pad
+                if (motionEvent.getX() <= screenWidth/2 && motionEvent.getX() >= (screenWidth/6 * 2)) {
+                    if (motionEvent.getY() <= (screenHeight - screenHeight/9) && motionEvent.getY() >= (screenHeight/9 * 7)) {
+                        player.moveRight();
+                    }
+                }
+
+                //left D-pad
+                if (motionEvent.getX() <= screenWidth/6) {
+                    if (motionEvent.getY() <= (screenHeight - screenHeight/9) && motionEvent.getY() >= (screenHeight/9 * 7)) {
+                        player.moveLeft();
+                    }
+                }
+
+                //up D-pad
+                if (motionEvent.getX() <= (screenWidth/2 - screenWidth/6) && motionEvent.getX() >= screenWidth/6) {
+                    if (motionEvent.getY() <= (screenHeight/9 * 7) && motionEvent.getY() >= (screenHeight/9 * 6)) {
+                        player.moveUp();
+                    }
+                }
+
+                //down D-pad
+                if(motionEvent.getX() <= (screenWidth/6 * 2) && motionEvent.getX() >= screenWidth/6) {
+                    if (motionEvent.getY() <= screenHeight && motionEvent.getY() >= screenHeight - screenHeight/9) {
+                        player.moveDown();
+                    }
+                }
+
+                break;
+
+            case MotionEvent.ACTION_UP:
+                player.stop();
+                break;
+        }
+        return true;
+    }
+
 
     public ArrayList<Enemy> generateEnemy()
     {
@@ -191,8 +234,6 @@ class GameView extends SurfaceView implements Runnable {
         }
     }
 
-
-
     public void controlFPS()
     {
         long timeThisFrame = (System.currentTimeMillis() - lastFrameTime);
@@ -212,7 +253,6 @@ class GameView extends SurfaceView implements Runnable {
         lastFrameTime = System.currentTimeMillis();
 
     }
-
 
 
     public void pause() {

@@ -23,8 +23,8 @@ public class dPad extends Sprite {
     }
 
 
-
-    //@Override
+    /**
+    @Override
     public boolean onTouchEvent(MotionEvent motionEvent, int gameWidth, int gameHeight, MainPlayer player) {
         switch (motionEvent.getAction() & MotionEvent.ACTION_MASK) {
             case MotionEvent.ACTION_DOWN:
@@ -65,6 +65,8 @@ public class dPad extends Sprite {
         }
         return true;
     }
+    */
+
 
 
     public void draw(Canvas source_canvas) {
