@@ -62,6 +62,7 @@ class GameView extends SurfaceView implements Runnable {
 
     Bitmap bitmap;
 
+
     public GameView(Context context, int sScreenWidth, int sScreenHeight) {
 
         super(context);
