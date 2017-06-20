@@ -50,7 +50,10 @@ class GameView extends SurfaceView implements Runnable {
 
     MainPlayer player;
     Bullet bullet;
-
+    dPad leftDpad;
+    dPad rightDpad;
+    dPad upDpad;
+    dPad downDpad;
 
     long lastFrameTime;
     int fps;
@@ -75,6 +78,11 @@ class GameView extends SurfaceView implements Runnable {
 
         bullet = new Bullet(context, screenWidth, screenHeight);
         bullet.moveDown();  // initialize bullet to move downwards towards the player
+
+        leftDpad = new dPad(screenWidth/6, screenHeight/9, screenWidth/6, screenHeight/9 * 8);
+        rightDpad = new dPad(screenWidth/6, screenHeight/9, screenWidth/6 * 3, screenHeight/9 * 8);
+        downDpad = new dPad(screenWidth/6, screenHeight/9, screenWidth/6 * 2, screenHeight/9 * 9);
+        upDpad = new dPad(screenWidth/6, screenHeight/9, screenWidth/6 * 2, screenHeight/9 * 7);
 
         player = new MainPlayer(context, sScreenHeight, sScreenWidth);
 
@@ -160,6 +168,12 @@ class GameView extends SurfaceView implements Runnable {
             //Draw the ball
             bullet.draw(canvas);
 
+            // draw all the dpad objects
+            upDpad.draw(canvas);
+            downDpad.draw(canvas);
+            rightDpad.draw(canvas);
+            leftDpad.draw(canvas);
+
             ourHolder.unlockCanvasAndPost(canvas);
 
 
@@ -186,49 +200,6 @@ class GameView extends SurfaceView implements Runnable {
         }
         lastFrameTime = System.currentTimeMillis();
 
-    }
-
-
-    @Override
-    public boolean onTouchEvent(MotionEvent motionEvent) {
-        switch (motionEvent.getAction() & MotionEvent.ACTION_MASK) {
-            case MotionEvent.ACTION_DOWN:
-
-                //right D-pad
-                if (motionEvent.getX() <= screenWidth/2 && motionEvent.getX() >= (screenWidth/6 * 2)) {
-                    if (motionEvent.getY() <= (screenHeight - screenHeight/9) && motionEvent.getY() >= (screenHeight/9 * 7)) {
-                        player.moveRight();
-                    }
-                }
-
-                //left D-pad
-                if (motionEvent.getX() <= screenWidth/6) {
-                    if (motionEvent.getY() <= (screenHeight - screenHeight/9) && motionEvent.getY() >= (screenHeight/9 * 7)) {
-                        player.moveLeft();
-                    }
-                }
-
-                //up D-pad
-                if (motionEvent.getX() <= (screenWidth/2 - screenWidth/6) && motionEvent.getX() >= screenWidth/6) {
-                    if (motionEvent.getY() <= (screenHeight/9 * 7) && motionEvent.getY() >= (screenHeight/9 * 6)) {
-                        player.moveUp();
-                    }
-                }
-
-                //down D-pad
-                if(motionEvent.getX() <= (screenWidth/6 * 2) && motionEvent.getX() >= screenWidth/6) {
-                    if (motionEvent.getY() <= screenHeight && motionEvent.getY() >= screenHeight - screenHeight/9) {
-                        player.moveDown();
-                    }
-                }
-
-                break;
-
-            case MotionEvent.ACTION_UP:
-                player.stop();
-                break;
-        }
-        return true;
     }
 
 
