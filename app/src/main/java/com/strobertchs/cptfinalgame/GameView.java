@@ -19,8 +19,10 @@ import android.graphics.Color;
 import android.media.AudioManager;
 import android.media.SoundPool;
 import android.view.MotionEvent;
+import android.widget.Toast;
 
 import java.io.IOException;
+import java.security.Key;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
@@ -158,6 +160,7 @@ class GameView extends SurfaceView implements Runnable {
             drawCourt();
             controlFPS();
             DestoyBullet();
+            // collideWithExit();
         }
     }
 
@@ -269,6 +272,25 @@ class GameView extends SurfaceView implements Runnable {
         }
     }
 
+    public boolean collideWithExit ()
+    {
+        if (exit.getPositionY() + exit.getWidth() >= player.getPositionY() && exit.getPositionY() + exit.getWidth() <= player.getPositionY() + player.getHeight() / 2 && exit.getPositionX() + exit.getWidth() >= player.getPositionX() && exit.getPositionX() <= player.getPositionX() + player.getWidth()) {
+            return true;
+        }
+        if (exit.getPositionY() <= player.getPositionY() + player.getHeight() && exit.getPositionY() >= player.getPositionY() + player.getHeight() / 2 && exit.getPositionX() + exit.getWidth() > player.getPositionX() && exit.getPositionX() < player.getPositionX() + player.getWidth()) {
+            return true;
+        }
+
+        if (exit.getPositionX() + exit.getWidth() >= player.getPositionX() && exit.getPositionX() + exit.getWidth() <= player.getPositionX() + player.getWidth() / 2 && exit.getPositionY() + exit.getHeight() >= player.getPositionY() && exit.getPositionY() <= player.getPositionY() + player.getHeight()) {
+            return true;
+        }
+        if (exit.getPositionX() <= player.getPositionX() + player.getWidth() && exit.getPositionX() > player.getPositionX() + player.getWidth() && exit.getPositionY() + exit.getHeight() >= player.getPositionY() && exit.getPositionY() <= player.getPositionY() + player.getHeight()) {
+            return true;
+        }
+        return false;
+    }
+
+
     public void updateCourt(Bullet bullet) {
 
         // move racket only if it is not at the edge of the screen
@@ -310,6 +332,8 @@ class GameView extends SurfaceView implements Runnable {
         }
 
         bullet.updatePosition();
+
+
 
 //        //collison between player and bullets
 //        for(int i=0;i<bullets.length;i++) {
@@ -378,6 +402,60 @@ class GameView extends SurfaceView implements Runnable {
 
             //draw the exit
             exit.draw(canvas);
+
+            if(collideWithExit()) {
+
+                Paint myPaint = new Paint();
+                canvas.drawPaint(myPaint);
+                myPaint.setColor(Color.BLACK);
+                myPaint.setTextSize(24);
+                canvas.drawText("My Text", (screenWidth/2), (screenHeight/2), paint);
+
+                @Override
+                public boolean onTouchEvent(MotionEvent myMotionEvent) {
+                    switch (motionEvent.getAction() & MotionEvent.ACTION_MASK) {
+                        case MotionEvent.ACTION_DOWN:
+
+                            //right D-pad
+                            if (motionEvent.getX() <= screenWidth/2 && motionEvent.getX() >= (screenWidth/6 * 2)) {
+                                if (motionEvent.getY() <= (screenHeight - screenHeight/9) && motionEvent.getY() >= (screenHeight/9 * 7)) {
+                                    player.moveRight();
+                                }
+                            }
+
+                            //left D-pad
+                            if (motionEvent.getX() <= screenWidth/6) {
+                                if (motionEvent.getY() <= (screenHeight - screenHeight/9) && motionEvent.getY() >= (screenHeight/9 * 7)) {
+                                    player.moveLeft();
+                                }
+                            }
+
+                            //up D-pad
+                            if (motionEvent.getX() <= (screenWidth/2 - screenWidth/6) && motionEvent.getX() >= screenWidth/6) {
+                                if (motionEvent.getY() <= (screenHeight/9 * 7) && motionEvent.getY() >= (screenHeight/9 * 6)) {
+                                    player.moveUp();
+                                }
+                            }
+
+                            //down D-pad
+                            if(motionEvent.getX() <= (screenWidth/6 * 2) && motionEvent.getX() >= screenWidth/6) {
+                                if (motionEvent.getY() <= screenHeight && motionEvent.getY() >= screenHeight - screenHeight/9) {
+                                    player.moveDown();
+                                }
+                            }
+
+                            break;
+
+                        case MotionEvent.ACTION_UP:
+                            player.stop();
+                            break;
+                    }
+                    return true;
+                }
+
+
+
+            }
 
             ourHolder.unlockCanvasAndPost(canvas);
 
