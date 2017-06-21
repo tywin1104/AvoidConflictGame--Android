@@ -55,11 +55,11 @@ public class Bullet extends AnimatedSprite {
     public void updatePosition() {
 
         if (isMovingLeft()) {
-            setPositionX(getPositionX() - getHorizontal_amount());
+            setPositionX(getPositionX() - 2*getHorizontal_amount());
         }
 
         if (isMovingRight()) {
-            setPositionX(getPositionX() + getHorizontal_amount());
+            setPositionX(getPositionX() + 2*getHorizontal_amount());
         }
 
         if (isMovingDown()) {

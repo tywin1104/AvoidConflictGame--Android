@@ -123,10 +123,11 @@ class GameView extends SurfaceView implements Runnable {
 
         //Send the ball in the random horizontal direction
         Random randomNumber = new Random();
-        int bulletDirection = randomNumber.nextInt(3);
+
 
         for(int i=0;i<4;i++) {
             Bullet bullet = bullets[i];
+            int bulletDirection = randomNumber.nextInt(3);
             switch(bulletDirection){
                 case 0:
                     bullet.moveLeft();
@@ -153,6 +154,7 @@ class GameView extends SurfaceView implements Runnable {
             }
             drawCourt();
             controlFPS();
+            DestoyBullet();
         }
     }
 
@@ -217,6 +219,47 @@ class GameView extends SurfaceView implements Runnable {
         return enemies;
     }
 
+    public void DestoyBullet () {
+        for (int i = 0; i < bullets.length; i++) {
+            Bullet bullet = bullets[i];
+            if (bullet.getPositionY() > screenHeight - bullet.getWidth()) {
+
+                /**
+                 lives = lives - 1;
+                 if (lives == 0) {
+                 lives = 3;
+                 score = 0;
+
+                 }
+                 */
+
+                //reset the bullet  to the top of the screen
+                bullet.setPositionY(enemies.get(i).getPositionY());
+                bullet.setPositionX(enemies.get(i).getPositionX());
+
+
+                //what horizontal direction should we use
+                //for the next falling ball
+                bullet.moveDown();
+                Random randomNumber = new Random();
+
+
+                int ballDirection = randomNumber.nextInt(3);
+                switch (ballDirection) {
+
+                    case 0:
+                        bullet.moveLeft();
+                        break;
+                    case 1:
+                        bullet.moveRight();
+                        break;
+                    case 2:
+                        bullet.moveStraight();
+                        break;
+                }
+            }
+        }
+    }
 
     public void updateCourt(Bullet bullet) {
 
@@ -258,44 +301,6 @@ class GameView extends SurfaceView implements Runnable {
             bullet.moveRight();
         }
 
-        //Edge of bullet has hit bottom of screen
-        if (bullet.getPositionY() > screenHeight - bullet.getWidth())
-        {
-
-            /**
-             lives = lives - 1;
-             if (lives == 0) {
-             lives = 3;
-             score = 0;
-
-             }
-             */
-
-            //reset the ball to the top of the screen
-            bullet.setPositionY(400);
-            bullet.setPositionX(screenWidth / 2);
-
-
-            //what horizontal direction should we use
-            //for the next falling ball
-            Random randomNumber = new Random();
-
-            bullet.moveDown();
-
-            int ballDirection = randomNumber.nextInt(3);
-            switch (ballDirection) {
-
-                case 0:
-                    bullet.moveLeft();
-                    break;
-                case 1:
-                    bullet.moveRight();
-                    break;
-                case 2:
-                    bullet.moveStraight();
-                    break;
-            }
-        }
 
 
 
