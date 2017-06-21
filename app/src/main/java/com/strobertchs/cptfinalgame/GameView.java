@@ -411,50 +411,6 @@ class GameView extends SurfaceView implements Runnable {
                 myPaint.setTextSize(24);
                 canvas.drawText("My Text", (screenWidth/2), (screenHeight/2), paint);
 
-                @Override
-                public boolean onTouchEvent(MotionEvent myMotionEvent) {
-                    switch (motionEvent.getAction() & MotionEvent.ACTION_MASK) {
-                        case MotionEvent.ACTION_DOWN:
-
-                            //right D-pad
-                            if (motionEvent.getX() <= screenWidth/2 && motionEvent.getX() >= (screenWidth/6 * 2)) {
-                                if (motionEvent.getY() <= (screenHeight - screenHeight/9) && motionEvent.getY() >= (screenHeight/9 * 7)) {
-                                    player.moveRight();
-                                }
-                            }
-
-                            //left D-pad
-                            if (motionEvent.getX() <= screenWidth/6) {
-                                if (motionEvent.getY() <= (screenHeight - screenHeight/9) && motionEvent.getY() >= (screenHeight/9 * 7)) {
-                                    player.moveLeft();
-                                }
-                            }
-
-                            //up D-pad
-                            if (motionEvent.getX() <= (screenWidth/2 - screenWidth/6) && motionEvent.getX() >= screenWidth/6) {
-                                if (motionEvent.getY() <= (screenHeight/9 * 7) && motionEvent.getY() >= (screenHeight/9 * 6)) {
-                                    player.moveUp();
-                                }
-                            }
-
-                            //down D-pad
-                            if(motionEvent.getX() <= (screenWidth/6 * 2) && motionEvent.getX() >= screenWidth/6) {
-                                if (motionEvent.getY() <= screenHeight && motionEvent.getY() >= screenHeight - screenHeight/9) {
-                                    player.moveDown();
-                                }
-                            }
-
-                            break;
-
-                        case MotionEvent.ACTION_UP:
-                            player.stop();
-                            break;
-                    }
-                    return true;
-                }
-
-
-
             }
 
             ourHolder.unlockCanvasAndPost(canvas);
