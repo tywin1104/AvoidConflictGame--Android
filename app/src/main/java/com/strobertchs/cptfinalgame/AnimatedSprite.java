@@ -9,9 +9,9 @@ public abstract class AnimatedSprite extends Sprite {
     private boolean movingRight;    // right flag
     private boolean movingUp;       // up flag
     private boolean movingDown;     // down flag
-    private int horizontal_amount;  // how much the ball moves along the horizontal axis
-    private int up_amount;          // how much the ball moves downward
-    private int down_amount;        // how much the ball moves upward
+    private int horizontal_amount;  // how much the bullet moves along the horizontal axis
+    private int up_amount;          // how much the bullet moves downward
+    private int down_amount;        // how much the bullet moves upward
 
     /**
      * Constructor - just calls the parent constructor
@@ -145,7 +145,7 @@ public abstract class AnimatedSprite extends Sprite {
 
 
     /**
-     * moveUp: indicate the ball to move up
+     * moveUp: indicate the bullet to move up
      */
     public void moveUp(){
         movingUp = true;
@@ -154,7 +154,7 @@ public abstract class AnimatedSprite extends Sprite {
 
 
     /**
-     * moveDown: indicate the ball to move down
+     * moveDown: indicate the bullet to move down
      */
     public void moveDown(){
         movingUp = false;

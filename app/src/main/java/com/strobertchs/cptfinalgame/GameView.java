@@ -121,7 +121,7 @@ class GameView extends SurfaceView implements Runnable {
         Resources res = getResources();
         bitmap = BitmapFactory.decodeResource(res, R.drawable.grass_14);
 
-        //Send the ball in the random horizontal direction
+        //Send the bullet in the random horizontal direction
         Random randomNumber = new Random();
 
 
@@ -222,7 +222,12 @@ class GameView extends SurfaceView implements Runnable {
     public void DestoyBullet () {
         for (int i = 0; i < bullets.length; i++) {
             Bullet bullet = bullets[i];
-            if (bullet.getPositionY() > screenHeight - bullet.getWidth()) {
+            if (bullet.getPositionY() > screenHeight - bullet.getWidth() || collision(bullets[i])) {
+                boolean isHit = collision((bullets[i]));
+                if(isHit) {
+                    player.setPositionX(screenWidth / 2);
+                    player.setPositionY(screenHeight - 100);
+                }
 
                 /**
                  lives = lives - 1;
@@ -239,13 +244,13 @@ class GameView extends SurfaceView implements Runnable {
 
 
                 //what horizontal direction should we use
-                //for the next falling ball
+                //for the next falling bullet
                 bullet.moveDown();
                 Random randomNumber = new Random();
 
 
-                int ballDirection = randomNumber.nextInt(3);
-                switch (ballDirection) {
+                int bulletDirection = randomNumber.nextInt(3);
+                switch (bulletDirection) {
 
                     case 0:
                         bullet.moveLeft();
@@ -301,10 +306,34 @@ class GameView extends SurfaceView implements Runnable {
             bullet.moveRight();
         }
 
-
-
-
         bullet.updatePosition();
+
+//        //collison between player and bullets
+//        for(int i=0;i<bullets.length;i++) {
+//            if(collision(bullets[i]))  {
+//                bullets[i].setPositionY(enemies.get(i).getPositionY());
+//                bullets[i].setPositionX(enemies.get(i).getPositionX());
+//
+//            }
+//        }
+    }
+
+
+    public boolean  collision(Bullet bullet) {
+        if (bullet.getPositionY() + bullet.getWidth() >= player.getPositionY() && bullet.getPositionY() + bullet.getWidth() <= player.getPositionY() + player.getHeight() / 2 && bullet.getPositionX() + bullet.getWidth() >= player.getPositionX() && bullet.getPositionX() <= player.getPositionX() + player.getWidth()) {
+            return true;
+        }
+        if (bullet.getPositionY() <= player.getPositionY() + player.getHeight() && bullet.getPositionY() >= player.getPositionY() + player.getHeight() / 2 && bullet.getPositionX() + bullet.getWidth() > player.getPositionX() && bullet.getPositionX() < player.getPositionX() + player.getWidth()) {
+            return true;
+        }
+
+        if (bullet.getPositionX() + bullet.getWidth() >= player.getPositionX() && bullet.getPositionX() + bullet.getWidth() <= player.getPositionX() + player.getWidth() / 2 && bullet.getPositionY() + bullet.getHeight() >= player.getPositionY() && bullet.getPositionY() <= player.getPositionY() + player.getHeight()) {
+            return true;
+        }
+        if (bullet.getPositionX() <= player.getPositionX() + player.getWidth() && bullet.getPositionX() > player.getPositionX() + player.getWidth() && bullet.getPositionY() + bullet.getHeight() >= player.getPositionY() && bullet.getPositionY() <= player.getPositionY() + player.getHeight()) {
+            return true;
+        }
+        return false;
     }
 
 

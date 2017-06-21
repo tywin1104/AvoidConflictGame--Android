@@ -29,6 +29,7 @@ public class MainPlayer extends AnimatedSprite
 
         setWidth(screen_width / 10);
         setHeight(screen_width / 10);
+
         setPositionX(screen_width / 2);    // default the player to be in the horizontal middle
         setPositionY(screen_height - 100);    // default the player to be at specific coordinate
 
@@ -91,8 +92,8 @@ public class MainPlayer extends AnimatedSprite
     }
 
     /**
-     * draw: draws the ball to the canvas object
-     * @param source_canvas the canvas object to draw the ball on
+     * draw: draws the bullet to the canvas object
+     * @param source_canvas the canvas object to draw the bullet on
      */
     public void draw(Canvas source_canvas){
 

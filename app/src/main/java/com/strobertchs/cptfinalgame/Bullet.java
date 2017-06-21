@@ -77,8 +77,8 @@ public class Bullet extends AnimatedSprite {
     }
 
     /**
-     * draw: draws the ball to the canvas object
-     * @param source_canvas the canvas object to draw the ball on
+     * draw: draws the bullet to the canvas object
+     * @param source_canvas the canvas object to draw the bullet on
      */
     public void draw(Canvas source_canvas){
 
