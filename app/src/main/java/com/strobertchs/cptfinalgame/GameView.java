@@ -59,6 +59,7 @@ class GameView extends SurfaceView implements Runnable {
     dPad upDpad;
     dPad downDpad;
     dPad centreDpad;
+    dPad fireButton;
     Exit exit;
 
     long lastFrameTime;
@@ -93,6 +94,8 @@ class GameView extends SurfaceView implements Runnable {
         upDpad = new dPad(screenWidth/6, screenHeight/9, screenWidth/6 * 2, screenHeight/9 * 7);
 
         centreDpad = new dPad(screenWidth/6, screenHeight/9, screenWidth/6 * 2, screenHeight/9 * 8);
+
+        fireButton = new dPad(screenWidth/6, screenHeight/9, screenWidth/6 * 6, screenHeight/9 * 8);
 
         exit = new Exit(context, screenWidth/6, screenHeight/50, (screenWidth/2 - (screenWidth/12)), 0);
 
@@ -399,6 +402,7 @@ class GameView extends SurfaceView implements Runnable {
             rightDpad.draw(canvas);
             leftDpad.draw(canvas);
             centreDpad.draw(canvas);
+            fireButton.draw(canvas);
 
             //draw the exit
             exit.draw(canvas);
