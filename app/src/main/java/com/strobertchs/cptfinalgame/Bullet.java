@@ -30,9 +30,9 @@ public class Bullet extends AnimatedSprite {
         setPositionX(x);    // default the bulltet to be in the horizontal middle
         setPositionY(y);    // default the bullet to be at specific coordinate
 
-        setHorizontal_amount(12);     // horizontal_amount default to 12 pixels
+        setHorizontal_amount(25);     // horizontal_amount default to 12 pixels
         setUp_amount(10);             // default up_amount to 10
-        setDown_amount(6);            // default down_amount to be 6
+        setDown_amount(17);            // default down_amount to be 6
 
         bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.bullet);
 
@@ -55,11 +55,11 @@ public class Bullet extends AnimatedSprite {
     public void updatePosition() {
 
         if (isMovingLeft()) {
-            setPositionX(getPositionX() - 2*getHorizontal_amount());
+            setPositionX(getPositionX() - getHorizontal_amount());
         }
 
         if (isMovingRight()) {
-            setPositionX(getPositionX() + 2*getHorizontal_amount());
+            setPositionX(getPositionX() + getHorizontal_amount());
         }
 
         if (isMovingDown()) {

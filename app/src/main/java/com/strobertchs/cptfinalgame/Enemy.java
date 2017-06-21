@@ -1,7 +1,11 @@
 package com.strobertchs.cptfinalgame;
 
+import android.graphics.Bitmap;
+import android.content.Context;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Rect;
 
 /**
  * Created by supriyamutharasan on 2017-06-12.
@@ -9,7 +13,12 @@ import android.graphics.Color;
 
 public class Enemy extends Sprite {
 
-    public Enemy(int enemy_width, int enemy_height, int positionX, int positionY)
+    protected Bitmap bitmap;
+    protected int frameNumber;
+    protected int frameHeight;
+    protected int frameWidth;
+
+    public Enemy(Context context, int enemy_width, int enemy_height, int positionX, int positionY)
     {
         super();
 
@@ -17,15 +26,25 @@ public class Enemy extends Sprite {
         setPositionY(positionY);
 
         setWidth(enemy_width);
-        setHeight(enemy_height);
+        setHeight(enemy_width);
+
+        bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.enemy);
+
+        frameHeight = bitmap.getHeight();
+        frameWidth = bitmap.getWidth();
+
     }
 
     public void draw(Canvas source_canvas) {
-        source_canvas.drawRect(getPositionX() - (getWidth() / 2),
+
+        Rect desRect = new Rect(getPositionX() - (getWidth() / 2),
                 getPositionY() - (getHeight() / 2),
                 getPositionX() + (getWidth() / 2),
-                getPositionY() + (getHeight() / 2),
-                paint);
+                getPositionY() + (getHeight() / 2));
+
+        //System.out.println("destRect: " + destRect.toString());
+        source_canvas.drawBitmap(bitmap, null, desRect, null);
+
 
     }
 

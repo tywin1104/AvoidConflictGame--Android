@@ -40,7 +40,7 @@ class GameView extends SurfaceView implements Runnable {
 
 
     int enemyBreadth = 200;
-    int ememyHeight = 100;
+    int ememyHeight = 200;
     int enemyGapX = 100;
     int enemyGapY = 100;
     int y_offset = 100;
@@ -92,11 +92,11 @@ class GameView extends SurfaceView implements Runnable {
 
         centreDpad = new dPad(screenWidth/6, screenHeight/9, screenWidth/6 * 2, screenHeight/9 * 8);
 
-        exit = new Exit(screenWidth/6, screenHeight/50, screenWidth/2, 0);
+        exit = new Exit(context, screenWidth/6, screenHeight/50, (screenWidth/2 - (screenWidth/12)), 0);
 
 
         enemies = new ArrayList<Enemy>();
-        enemies = generateEnemy();
+        enemies = generateEnemy(context);
 
 //            for(int j = 0; j < enemies.size(); j ++)
 //            {
@@ -204,7 +204,7 @@ class GameView extends SurfaceView implements Runnable {
     }
 
 
-    public ArrayList<Enemy> generateEnemy()
+    public ArrayList<Enemy> generateEnemy(Context context)
     {
         for(int i=0; i < 1; i++)
         {
@@ -213,7 +213,7 @@ class GameView extends SurfaceView implements Runnable {
 
             while(x < screenWidth)
             {
-                enemies.add(new Enemy(enemyBreadth, ememyHeight, x, y));
+                enemies.add(new Enemy(context, enemyBreadth, ememyHeight, x, y));
                 x += enemyBreadth + enemyGapX;
             }
 
