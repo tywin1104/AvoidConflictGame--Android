@@ -22,6 +22,7 @@ import android.view.MotionEvent;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 /**
@@ -47,9 +48,10 @@ class GameView extends SurfaceView implements Runnable {
 
 
     ArrayList<Enemy> enemies;
+    //ArrayList<Bullet> bullets;
+    Bullet[] bullets = new Bullet[4];
 
     MainPlayer player;
-    Bullet bullet;
     dPad leftDpad;
     dPad rightDpad;
     dPad upDpad;
@@ -77,9 +79,6 @@ class GameView extends SurfaceView implements Runnable {
         ourHolder = getHolder();
         paint = new Paint();
 
-        bullet = new Bullet(context, screenWidth, screenHeight);
-        bullet.moveDown();  // initialize bullet to move downwards towards the player
-
         player = new MainPlayer(context, sScreenHeight, sScreenWidth);
 
         leftDpad = new dPad(screenWidth/6, screenHeight/9, screenWidth/6, screenHeight/9 * 8);
@@ -96,6 +95,26 @@ class GameView extends SurfaceView implements Runnable {
         enemies = new ArrayList<Enemy>();
         enemies = generateEnemy();
 
+//            for(int j = 0; j < enemies.size(); j ++)
+//            {
+//                bullets.add(new Bullet(context, screenWidth, screenHeight, enemies.get(j).getPositionX(),enemies.get(j).getPositionY()));
+//                bullets.get(j).moveDown();
+//
+//            }
+        int index = 0;
+        while(index < 4) {
+            bullets[index] = new Bullet(context, screenWidth, screenHeight, enemies.get(index).getPositionX(),enemies.get(index).getPositionY());
+            index++;
+        }
+
+
+        for(int i=0;i<4;i++) {
+            Bullet temp = bullets[i];
+            temp.moveDown();
+        }
+
+
+
         lives = 3;
         score = 0;
 
@@ -105,26 +124,33 @@ class GameView extends SurfaceView implements Runnable {
         //Send the ball in the random horizontal direction
         Random randomNumber = new Random();
         int bulletDirection = randomNumber.nextInt(3);
-        switch(bulletDirection){
-            case 0:
-                bullet.moveLeft();
-                break;
 
-            case 1:
-                bullet.moveRight();
-                break;
+        for(int i=0;i<4;i++) {
+            Bullet bullet = bullets[i];
+            switch(bulletDirection){
+                case 0:
+                    bullet.moveLeft();
+                    break;
 
-            case 2:
-                bullet.moveStraight();
-                break;
+                case 1:
+                    bullet.moveRight();
+                    break;
+
+                case 2:
+                    bullet.moveStraight();
+                    break;
+            }
         }
+
 
     }
 
     @Override
     public void run() {
         while (playPeaceGame) {
-            updateCourt();    // Deals with Collision etc.
+            for(int i=0;i<4;i++) {
+                updateCourt(bullets[i]);
+            }
             drawCourt();
             controlFPS();
         }
@@ -191,7 +217,8 @@ class GameView extends SurfaceView implements Runnable {
         return enemies;
     }
 
-    public void updateCourt() {
+
+    public void updateCourt(Bullet bullet) {
 
         // move racket only if it is not at the edge of the screen
 
@@ -297,8 +324,13 @@ class GameView extends SurfaceView implements Runnable {
             //Draw the main player
             player.draw(canvas);
 
-            //Draw the ball
-            bullet.draw(canvas);
+            //Draw the bullet
+
+
+            for(int i=0;i<4;i++) {
+                bullets[i].draw(canvas);
+            }
+            //bullet.draw(canvas);
 
             // draw all the dpad objects
             upDpad.draw(canvas);

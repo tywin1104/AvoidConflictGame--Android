@@ -22,13 +22,13 @@ public class Bullet extends AnimatedSprite {
     protected Rect rectToBeDrawn;
     protected ArrayList<Bitmap> asteroids;
 
-    public Bullet(Context context, int screen_width, int screen_height) {
+    public Bullet(Context context, int screen_width, int screen_height,int x, int y) {
         super();
 
         setWidth(screen_width / 15);
         setHeight(screen_width / 15);
-        setPositionX(screen_height / 2);    // default the bulltet to be in the horizontal middle
-        setPositionY(400);    // default the bullet to be at specific coordinate
+        setPositionX(x);    // default the bulltet to be in the horizontal middle
+        setPositionY(y);    // default the bullet to be at specific coordinate
 
         setHorizontal_amount(12);     // horizontal_amount default to 12 pixels
         setUp_amount(10);             // default up_amount to 10
