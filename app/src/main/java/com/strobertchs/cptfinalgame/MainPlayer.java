@@ -29,7 +29,7 @@ public class MainPlayer extends AnimatedSprite
 
         setWidth(screen_width / 10);
         setHeight(screen_width / 10);
-        setPositionX(screen_height / 2);    // default the player to be in the horizontal middle
+        setPositionX(screen_width / 2);    // default the player to be in the horizontal middle
         setPositionY(screen_height - 100);    // default the player to be at specific coordinate
 
         setHorizontal_amount(12);     // horizontal_amount default to 12 pixels

@@ -83,16 +83,12 @@ class GameView extends SurfaceView implements Runnable {
         player = new MainPlayer(context, sScreenHeight, sScreenWidth);
 
         leftDpad = new dPad(screenWidth/6, screenHeight/9, screenWidth/6, screenHeight/9 * 8);
-        //leftDpad.onTouchEvent(MainActivity android.view.MotionEvent, screenWidth, screenHeight, player);
 
         rightDpad = new dPad(screenWidth/6, screenHeight/9, screenWidth/6 * 3, screenHeight/9 * 8);
-        //rightDpad.onTouchEvent(motion, screenWidth, screenHeight, player);
 
         downDpad = new dPad(screenWidth/6, screenHeight/9, screenWidth/6 * 2, screenHeight/9 * 9);
-        //downDpad.onTouchEvent(motion, screenWidth, screenHeight, player);
 
         upDpad = new dPad(screenWidth/6, screenHeight/9, screenWidth/6 * 2, screenHeight/9 * 7);
-        //upDpad.onTouchEvent(motion, screenWidth, screenHeight, player);
 
         centreDpad = new dPad(screenWidth/6, screenHeight/9, screenWidth/6 * 2, screenHeight/9 * 8);
 
@@ -128,11 +124,9 @@ class GameView extends SurfaceView implements Runnable {
     @Override
     public void run() {
         while (playPeaceGame) {
-            // updateCourt();    // Deals with Collision etc.
+            updateCourt();    // Deals with Collision etc.
             drawCourt();
             controlFPS();
-            bullet.updatePosition();
-            player.updatePosition();
         }
     }
 
@@ -199,6 +193,33 @@ class GameView extends SurfaceView implements Runnable {
 
     public void updateCourt() {
 
+        // move racket only if it is not at the edge of the screen
+
+        if (player.isMovingRight()) {
+            if(player.getPositionX() + player.getWidth()/2 < screenWidth){ //move right only if you haven't hit the right edge
+                player.updatePosition();
+            }
+        }
+
+        if (player.isMovingLeft()) {
+            if (player.getPositionX() - player.getWidth()/2 > 0){  //move left only if you haven't hit the left edge
+                player.updatePosition();
+            }
+        }
+
+        if (player.isMovingDown()) {
+            if (player.getPositionY() - player.getHeight()/2 < (screenHeight-40)){  //move down only if you haven't hit the bottomedge
+                player.updatePosition();
+            }
+        }
+
+        if (player.isMovingUp()) {
+            if (player.getPositionY() - player.getHeight()/2 > 0){  //move up only if you haven't hit the top edge
+                player.updatePosition();
+            }
+        }
+
+
         //hit right of screen
         if (bullet.getPositionX() + bullet.getWidth() > screenWidth) {
             bullet.moveLeft();
@@ -248,6 +269,9 @@ class GameView extends SurfaceView implements Runnable {
                     break;
             }
         }
+
+
+
         bullet.updatePosition();
     }
 
