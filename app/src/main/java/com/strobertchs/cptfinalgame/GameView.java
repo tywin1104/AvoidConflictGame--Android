@@ -72,6 +72,8 @@ class GameView extends SurfaceView implements Runnable {
     int screenWidth;
     int screenHeight;
 
+    boolean gameOver = false;
+
     Bitmap bitmap;
 
 
@@ -346,6 +348,10 @@ class GameView extends SurfaceView implements Runnable {
         //hit left of screen
         if (bullet.getPositionX() < 0) {
             bullet.moveRight();
+        }
+
+        if(collideWithExit()) {
+            gameOver = true;
         }
 
         bullet.updatePosition();
