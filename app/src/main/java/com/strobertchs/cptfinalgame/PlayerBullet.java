@@ -32,7 +32,7 @@ public class PlayerBullet extends AnimatedSprite {
         setPositionY(y);    // default the bullet to be at specific coordinate
 
         setHorizontal_amount(25);     // horizontal_amount default to 12 pixels
-        setUp_amount(10);             // default up_amount to 10
+        setUp_amount(100);             // default up_amount to 10
         setDown_amount(17);            // default down_amount to be 6
 
         bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.bullet);

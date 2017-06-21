@@ -76,6 +76,7 @@ class GameView extends SurfaceView implements Runnable {
 
     Bitmap bitmap;
 
+    boolean shooting = false;
 
     public GameView(Context context, int sScreenWidth, int sScreenHeight) {
 
@@ -103,9 +104,10 @@ class GameView extends SurfaceView implements Runnable {
 
         exit = new Exit(context, screenWidth/6, screenHeight/50, (screenWidth/2 - (screenWidth/12)), 0);
 
-
         enemies = new ArrayList<Enemy>();
         enemies = generateEnemy(context);
+
+        playerBullet = new PlayerBullet(context, screenWidth, screenHeight, -10,-10);
 
 //            for(int j = 0; j < enemies.size(); j ++)
 //            {
@@ -212,7 +214,11 @@ class GameView extends SurfaceView implements Runnable {
                 //fire button
                 if (motionEvent.getX() <= screenWidth && motionEvent.getX() >= screenWidth/6 * 5) {
                     if (motionEvent.getY() <= (screenHeight - screenHeight/9) && motionEvent.getY() >= (screenHeight/9 * 7)) {
+                        playerBullet.setPositionX(player.getPositionX());
+                        playerBullet.setPositionY(player.getPositionY());
+                        shooting = true;
                         playerBullet.moveUp();
+
                     }
                 }
 
@@ -224,7 +230,6 @@ class GameView extends SurfaceView implements Runnable {
         }
         return true;
     }
-
 
     public ArrayList<Enemy> generateEnemy(Context context)
     {
@@ -311,9 +316,8 @@ class GameView extends SurfaceView implements Runnable {
 
 
     public void updateCourt(Bullet bullet) {
-
         // move racket only if it is not at the edge of the screen
-
+        playerBullet.updatePosition();
         if (player.isMovingRight()) {
             if(player.getPositionX() + player.getWidth()< screenWidth){ //move right only if you haven't hit the right edge
                 player.updatePosition();
@@ -423,8 +427,10 @@ class GameView extends SurfaceView implements Runnable {
             leftDpad.draw(canvas);
             centreDpad.draw(canvas);
             fireButton.draw(canvas);
-
-            playerBullet.draw(canvas);
+            if(shooting = true) {
+                playerBullet.draw(canvas);
+                playerBullet.moveUp();
+            }
             //draw the exit
             exit.draw(canvas);
 
