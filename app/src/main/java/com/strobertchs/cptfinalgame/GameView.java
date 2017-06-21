@@ -200,6 +200,13 @@ class GameView extends SurfaceView implements Runnable {
                     }
                 }
 
+                //fire button
+                if (motionEvent.getX() <= screenWidth && motionEvent.getX() >= screenWidth/6 * 5) {
+                    if (motionEvent.getY() <= (screenHeight - screenHeight/9) && motionEvent.getY() >= (screenHeight/9 * 7)) {
+                        
+                    }
+                }
+
                 break;
 
             case MotionEvent.ACTION_UP:
