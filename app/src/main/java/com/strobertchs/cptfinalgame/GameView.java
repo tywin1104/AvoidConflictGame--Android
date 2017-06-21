@@ -156,13 +156,18 @@ class GameView extends SurfaceView implements Runnable {
 
     }
 
+
     @Override
     public void run() {
         while (playPeaceGame) {
             for(int i=0;i<4;i++) {
                 updateCourt(bullets[i]);
             }
-            drawCourt();
+            if(gameOver) {
+                drawGameOver();
+            }else  {
+                drawCourt();
+            }
             controlFPS();
             DestoyBullet();
             // collideWithExit();
@@ -429,6 +434,22 @@ class GameView extends SurfaceView implements Runnable {
 
             ourHolder.unlockCanvasAndPost(canvas);
 
+
+        }
+    }
+
+    public void  drawGameOver () {
+        if (ourHolder.getSurface().isValid())
+        {
+            canvas = ourHolder.lockCanvas();
+
+            Paint myPaint = new Paint();
+            canvas.drawPaint(myPaint);
+            myPaint.setColor(Color.BLACK);
+            myPaint.setTextSize(24);
+            canvas.drawText("My Text", (screenWidth / 2), (screenHeight / 2), paint);
+
+            ourHolder.unlockCanvasAndPost(canvas);
 
         }
     }
