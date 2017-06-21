@@ -62,6 +62,8 @@ class GameView extends SurfaceView implements Runnable {
     dPad fireButton;
     Exit exit;
 
+    PlayerBullet playerBullet;
+
     long lastFrameTime;
     int fps;
     int lives;
@@ -203,7 +205,7 @@ class GameView extends SurfaceView implements Runnable {
                 //fire button
                 if (motionEvent.getX() <= screenWidth && motionEvent.getX() >= screenWidth/6 * 5) {
                     if (motionEvent.getY() <= (screenHeight - screenHeight/9) && motionEvent.getY() >= (screenHeight/9 * 7)) {
-                        
+                        playerBullet.moveUp();
                     }
                 }
 
@@ -411,6 +413,7 @@ class GameView extends SurfaceView implements Runnable {
             centreDpad.draw(canvas);
             fireButton.draw(canvas);
 
+            playerBullet.draw(canvas);
             //draw the exit
             exit.draw(canvas);
 
