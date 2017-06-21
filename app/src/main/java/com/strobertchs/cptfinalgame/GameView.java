@@ -254,7 +254,7 @@ class GameView extends SurfaceView implements Runnable {
             Bullet bullet = bullets[i];
             if (bullet.getPositionY() > screenHeight - bullet.getWidth() || collision(bullets[i])) {
                 boolean isHit = collision((bullets[i]));
-                if(isHit) {
+                if(isHit && bullets[i].visible) {
                     player.setPositionX(screenWidth / 2);
                     player.setPositionY(screenHeight - 100);
                 }
@@ -314,6 +314,27 @@ class GameView extends SurfaceView implements Runnable {
         return false;
     }
 
+    public boolean collideWithplayerBullet(Enemy enemy)
+    {
+        if (playerBullet.getPositionY() + playerBullet.getWidth() >= enemy.getPositionY() && playerBullet.getPositionY() + playerBullet.getWidth() <= enemy.getPositionY() + enemy.getHeight() / 2 && playerBullet.getPositionX() + playerBullet.getWidth() >= enemy.getPositionX() && playerBullet.getPositionX() <= enemy.getPositionX() + enemy.getWidth()) {
+            return true;
+        }
+        if (playerBullet.getPositionY() <= enemy.getPositionY() + enemy.getHeight() && playerBullet.getPositionY() >= enemy.getPositionY() + enemy.getHeight() / 2 && playerBullet.getPositionX() + playerBullet.getWidth() > enemy.getPositionX() && playerBullet.getPositionX() < enemy.getPositionX() + enemy.getWidth()) {
+            return true;
+        }
+
+        if (playerBullet.getPositionX() + playerBullet.getWidth() >= enemy.getPositionX() && playerBullet.getPositionX() + playerBullet.getWidth() <= enemy.getPositionX() + enemy.getWidth() / 2 && playerBullet.getPositionY() + playerBullet.getHeight() >= enemy.getPositionY() && playerBullet.getPositionY() <= enemy.getPositionY() + enemy.getHeight()) {
+            return true;
+        }
+        if (playerBullet.getPositionX() <= enemy.getPositionX() + enemy.getWidth() && playerBullet.getPositionX() > enemy.getPositionX() + enemy.getWidth() && playerBullet.getPositionY() + playerBullet.getHeight() >= enemy.getPositionY() && playerBullet.getPositionY() <= enemy.getPositionY() + enemy.getHeight()) {
+            return true;
+        }
+        return false;
+    }
+
+
+
+
 
     public void updateCourt(Bullet bullet) {
         // move racket only if it is not at the edge of the screen
@@ -359,17 +380,17 @@ class GameView extends SurfaceView implements Runnable {
         }
 
         bullet.updatePosition();
+        for(int i=0;i<enemies.size();i++) {
+            Enemy enemy = enemies.get(i);
+            if(collideWithplayerBullet(enemy))
+            {
+                enemy.visible = false;
+                bullets[i].visible = false;
+
+            }
+        }
 
 
-
-//        //collison between player and bullets
-//        for(int i=0;i<bullets.length;i++) {
-//            if(collision(bullets[i]))  {
-//                bullets[i].setPositionY(enemies.get(i).getPositionY());
-//                bullets[i].setPositionX(enemies.get(i).getPositionX());
-//
-//            }
-//        }
     }
 
 
@@ -405,8 +426,9 @@ class GameView extends SurfaceView implements Runnable {
             canvas.drawText("Score:" + score + " fps:" + fps, 20, 40, paint);
 
             for (int i = 0; i < enemies.size(); i ++)
-            {
+            {if(enemies.get((i)).visible) {
                 enemies.get(i).draw(canvas);
+             }
             }
 
             //Draw the main player
@@ -416,7 +438,9 @@ class GameView extends SurfaceView implements Runnable {
 
 
             for(int i=0;i<4;i++) {
-                bullets[i].draw(canvas);
+                if(bullets[i].visible) {
+                    bullets[i].draw(canvas);
+                }
             }
             //bullet.draw(canvas);
 

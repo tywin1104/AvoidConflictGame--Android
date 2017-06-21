@@ -17,6 +17,7 @@ public class Enemy extends Sprite {
     protected int frameNumber;
     protected int frameHeight;
     protected int frameWidth;
+    boolean visible = true;
 
     public Enemy(Context context, int enemy_width, int enemy_height, int positionX, int positionY)
     {

@@ -21,6 +21,7 @@ public class Bullet extends AnimatedSprite {
     protected int framesPerRow;
     protected Rect rectToBeDrawn;
     protected ArrayList<Bitmap> asteroids;
+    boolean visible = true;
 
     public Bullet(Context context, int screen_width, int screen_height,int x, int y) {
         super();
