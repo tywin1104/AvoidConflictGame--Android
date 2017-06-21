@@ -223,25 +223,25 @@ class GameView extends SurfaceView implements Runnable {
         // move racket only if it is not at the edge of the screen
 
         if (player.isMovingRight()) {
-            if(player.getPositionX() + player.getWidth()/2 < screenWidth){ //move right only if you haven't hit the right edge
+            if(player.getPositionX() + player.getWidth()< screenWidth){ //move right only if you haven't hit the right edge
                 player.updatePosition();
             }
         }
 
         if (player.isMovingLeft()) {
-            if (player.getPositionX() - player.getWidth()/2 > 0){  //move left only if you haven't hit the left edge
+            if (player.getPositionX() > 0){  //move left only if you haven't hit the left edge
                 player.updatePosition();
             }
         }
 
         if (player.isMovingDown()) {
-            if (player.getPositionY() - player.getHeight()/2 < (screenHeight-40)){  //move down only if you haven't hit the bottomedge
+            if (player.getPositionY() + player.getHeight()/2 < (screenHeight-40)){  //move down only if you haven't hit the bottomedge
                 player.updatePosition();
             }
         }
 
         if (player.isMovingUp()) {
-            if (player.getPositionY() - player.getHeight()/2 > 0){  //move up only if you haven't hit the top edge
+            if (player.getPositionY() > 0){  //move up only if you haven't hit the top edge
                 player.updatePosition();
             }
         }
