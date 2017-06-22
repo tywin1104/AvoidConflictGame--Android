@@ -48,6 +48,7 @@ class GameView extends SurfaceView implements Runnable {
     int y_offset = 100;
     int x_offset = 50;
 
+    boolean reachedExit = false;
 
     ArrayList<Enemy> enemies;
     //ArrayList<Bullet> bullets;
@@ -458,10 +459,6 @@ class GameView extends SurfaceView implements Runnable {
             }
             //draw the exit
             exit.draw(canvas);
-
-            if(collideWithExit()) {
-                drawWinGameOver(player.score);
-            }
 
             ourHolder.unlockCanvasAndPost(canvas);
 
