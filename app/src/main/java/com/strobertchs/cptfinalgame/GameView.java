@@ -70,7 +70,6 @@ class GameView extends SurfaceView implements Runnable {
     int screenWidth;
     int screenHeight;
 
-    boolean winGameOver = false;
 
     Bitmap bitmap;
 
@@ -164,7 +163,7 @@ class GameView extends SurfaceView implements Runnable {
             for(int i=0;i<4;i++) {
                 updateCourt(bullets[i]);
             }
-            if(winGameOver) {
+            if(collideWithExit()) {
                 drawWinGameOver(player.score);
             }
             if(player.score <= 0)
@@ -379,10 +378,6 @@ class GameView extends SurfaceView implements Runnable {
             bullet.moveRight();
         }
 
-        if(collideWithExit()) {
-            winGameOver = true;
-        }
-
 
         bullet.updatePosition();
         for(int i=0;i<enemies.size();i++) {
@@ -465,13 +460,7 @@ class GameView extends SurfaceView implements Runnable {
             exit.draw(canvas);
 
             if(collideWithExit()) {
-
-                Paint myPaint = new Paint();
-                canvas.drawPaint(myPaint);
-                myPaint.setColor(Color.BLACK);
-                myPaint.setTextSize(50);
-                canvas.drawText("Congratulations! You won. Your score is " + player.score, 100, (screenHeight / 2), paint);
-
+                drawWinGameOver(player.score);
             }
 
             ourHolder.unlockCanvasAndPost(canvas);
