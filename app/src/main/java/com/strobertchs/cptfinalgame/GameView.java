@@ -166,6 +166,7 @@ class GameView extends SurfaceView implements Runnable {
             }
             if(collideWithExit()) {
                 drawWinGameOver(player.score);
+
             }
             if(player.score <= 0)
             {
@@ -223,6 +224,11 @@ class GameView extends SurfaceView implements Runnable {
                         playerBullet.moveUp();
 
                     }
+                }
+
+                if(collideWithExit())
+                {
+                    return false;
                 }
 
                 break;
@@ -460,7 +466,20 @@ class GameView extends SurfaceView implements Runnable {
             //draw the exit
             exit.draw(canvas);
 
+            if(collideWithExit())
+            {
+                Paint myPaint = new Paint();
+                canvas.drawPaint(myPaint);
+                myPaint.setColor(Color.BLACK);
+                myPaint.setTextSize(50);
+                canvas.drawText("Congratulations! You won. Your score is " + player.score, 100, (screenHeight / 2), paint);
+
+                player.stop();
+            }
+
             ourHolder.unlockCanvasAndPost(canvas);
+
+
 
 
         }
