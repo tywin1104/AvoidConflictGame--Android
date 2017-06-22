@@ -61,13 +61,11 @@ class GameView extends SurfaceView implements Runnable {
     dPad centreDpad;
     dPad fireButton;
     Exit exit;
-
     PlayerBullet playerBullet;
 
     long lastFrameTime;
     int fps;
     int lives;
-    int score = 40;
 
     int screenWidth;
     int screenHeight;
@@ -130,7 +128,6 @@ class GameView extends SurfaceView implements Runnable {
 
 
         lives = 3;
-        score = 0;
 
         Resources res = getResources();
         bitmap = BitmapFactory.decodeResource(res, R.drawable.grass_14);
@@ -168,11 +165,11 @@ class GameView extends SurfaceView implements Runnable {
                 updateCourt(bullets[i]);
             }
             if(winGameOver) {
-                drawWinGameOver();
+                drawWinGameOver(player.score);
             }
-            if(score <= 0)
+            if(player.score <= 0)
             {
-                drawLoseGameOver();
+                drawLoseGameOver(player.score);
             }
             else
             {
@@ -263,6 +260,7 @@ class GameView extends SurfaceView implements Runnable {
                 if(isHit && bullets[i].visible) {
                     player.setPositionX(screenWidth / 2);
                     player.setPositionY(screenHeight - 100);
+                    player.score-= 5;
                 }
 
                 /**
@@ -385,6 +383,7 @@ class GameView extends SurfaceView implements Runnable {
             winGameOver = true;
         }
 
+
         bullet.updatePosition();
         for(int i=0;i<enemies.size();i++) {
             Enemy enemy = enemies.get(i);
@@ -392,31 +391,26 @@ class GameView extends SurfaceView implements Runnable {
             {
                 enemy.visible = false;
                 bullets[i].visible = false;
-                score = score - 10;
+                player.score -= 5;
 
             }
         }
-
 
     }
 
 
     public boolean  collision(Bullet bullet) {
         if (bullet.getPositionY() + bullet.getWidth() >= player.getPositionY() && bullet.getPositionY() + bullet.getWidth() <= player.getPositionY() + player.getHeight() / 2 && bullet.getPositionX() + bullet.getWidth() >= player.getPositionX() && bullet.getPositionX() <= player.getPositionX() + player.getWidth()) {
-            score = score - 5;
             return true;
         }
         if (bullet.getPositionY() <= player.getPositionY() + player.getHeight() && bullet.getPositionY() >= player.getPositionY() + player.getHeight() / 2 && bullet.getPositionX() + bullet.getWidth() > player.getPositionX() && bullet.getPositionX() < player.getPositionX() + player.getWidth()) {
-            score = score - 5;
             return true;
         }
 
         if (bullet.getPositionX() + bullet.getWidth() >= player.getPositionX() && bullet.getPositionX() + bullet.getWidth() <= player.getPositionX() + player.getWidth() / 2 && bullet.getPositionY() + bullet.getHeight() >= player.getPositionY() && bullet.getPositionY() <= player.getPositionY() + player.getHeight()) {
-            score = score - 5;
             return true;
         }
         if (bullet.getPositionX() <= player.getPositionX() + player.getWidth() && bullet.getPositionX() > player.getPositionX() + player.getWidth() && bullet.getPositionY() + bullet.getHeight() >= player.getPositionY() && bullet.getPositionY() <= player.getPositionY() + player.getHeight()) {
-            score = score - 5;
             return true;
         }
         return false;
@@ -434,7 +428,7 @@ class GameView extends SurfaceView implements Runnable {
             canvas.drawBitmap(bitmap, 0, 0, paint);
             paint.setTextSize(45);
 
-            canvas.drawText("Score:" + score + " fps:" + fps, 20, 40, paint);
+            canvas.drawText("Score:" + player.score + " fps:" + fps, 20, 40, paint);
 
             for (int i = 0; i < enemies.size(); i ++)
             {if(enemies.get((i)).visible) {
@@ -475,8 +469,8 @@ class GameView extends SurfaceView implements Runnable {
                 Paint myPaint = new Paint();
                 canvas.drawPaint(myPaint);
                 myPaint.setColor(Color.BLACK);
-                myPaint.setTextSize(24);
-                canvas.drawText("My Text", (screenWidth/2), (screenHeight/2), paint);
+                myPaint.setTextSize(50);
+                canvas.drawText("Congratulations! You won. Your score is " + player.score, 100, (screenHeight / 2), paint);
 
             }
 
@@ -486,7 +480,7 @@ class GameView extends SurfaceView implements Runnable {
         }
     }
 
-    public void  drawWinGameOver () {
+    public void  drawWinGameOver (int score) {
         if (ourHolder.getSurface().isValid())
         {
             canvas = ourHolder.lockCanvas();
@@ -494,15 +488,15 @@ class GameView extends SurfaceView implements Runnable {
             Paint myPaint = new Paint();
             canvas.drawPaint(myPaint);
             myPaint.setColor(Color.BLACK);
-            myPaint.setTextSize(24);
-            canvas.drawText("My Text", (screenWidth / 2), (screenHeight / 2), paint);
+            myPaint.setTextSize(50);
+            canvas.drawText("Congratulations! You won. Your score is " + player.score, 100, (screenHeight / 2), paint);
 
             ourHolder.unlockCanvasAndPost(canvas);
 
         }
     }
 
-    public void  drawLoseGameOver () {
+    public void  drawLoseGameOver (int score) {
         if (ourHolder.getSurface().isValid())
         {
             canvas = ourHolder.lockCanvas();
@@ -510,8 +504,8 @@ class GameView extends SurfaceView implements Runnable {
             Paint myPaint = new Paint();
             canvas.drawPaint(myPaint);
             myPaint.setColor(Color.BLACK);
-            myPaint.setTextSize(24);
-            canvas.drawText("My Text", (screenWidth / 2), (screenHeight / 2), paint);
+            myPaint.setTextSize(50);
+            canvas.drawText("Game Over! Please Try Again. Your score is " + score, 100, (screenHeight / 2), paint);
 
             ourHolder.unlockCanvasAndPost(canvas);
 

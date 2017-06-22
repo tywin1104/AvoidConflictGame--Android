@@ -22,6 +22,7 @@ public class MainPlayer extends AnimatedSprite
     protected int numFrames;
     protected int framesPerRow;
     protected Rect rectToBeDrawn;
+    int score = 60;
 
     public MainPlayer(Context context, int screen_height, int screen_width)
     {
@@ -117,7 +118,6 @@ public class MainPlayer extends AnimatedSprite
     public String toString(){
         return "BULLET--> x: " + Integer.toString(getPositionX()) + "  y: " + Integer.toString(getPositionY());
     }
-
 
 }
 
