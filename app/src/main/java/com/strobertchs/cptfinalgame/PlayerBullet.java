@@ -38,7 +38,7 @@ public class PlayerBullet extends AnimatedSprite {
         setPositionX(x);    // default the bulltet to be in the horizontal middle
         setPositionY(y);    // default the bullet to be at specific coordinate
 
-        setHorizontal_amount(25);     // horizontal_amount default to 12 pixels
+        setHorizontal_amount(15);     // horizontal_amount default to 12 pixels
         setUp_amount(80);             // default up_amount to 10
         setDown_amount(17);            // default down_amount to be 6
 

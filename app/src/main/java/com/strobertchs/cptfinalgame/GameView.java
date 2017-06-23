@@ -34,7 +34,7 @@ class GameView extends SurfaceView implements Runnable {
     int enemyBreadth = 200;
     int ememyHeight = 200;
 
-    int enemyGapX = 100;
+    int enemyGapX = 120;
     int enemyGapY = 100;
 
     int rowOfEnemies = 1;
@@ -204,9 +204,11 @@ class GameView extends SurfaceView implements Runnable {
             Bullet bullet = bullets[i];
             // if player collides with bullet
             if (bullet.getPositionY() > screenHeight - bullet.getWidth() || collision(bullets[i])) {
+
                 boolean isHit = collision((bullets[i]));
+
                 if(isHit && bullets[i].visible) {
-                    player.setPositionX(screenWidth / 2);
+                    player.setPositionX(30);
                     player.setPositionY(screenHeight - 100);
                     player.setScore( player.getScore() - 5);
                 }
