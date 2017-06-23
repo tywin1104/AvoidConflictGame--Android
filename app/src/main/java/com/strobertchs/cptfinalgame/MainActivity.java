@@ -11,7 +11,8 @@ import android.view.KeyEvent;
 
 public class MainActivity extends Activity {
 
-    GameView playingPeaceGame;
+    // Initiating Important Objects
+    GameView playingFrenemies;
     Display display;
     Point size;
     int screenWidth;
@@ -28,8 +29,9 @@ public class MainActivity extends Activity {
         screenWidth = size.x;
         screenHeight = size.y;
 
-        playingPeaceGame = new GameView(this, screenWidth, screenHeight);
-        setContentView(playingPeaceGame);
+        // setting up the properties for the game object
+        playingFrenemies = new GameView(this, screenWidth, screenHeight);
+        setContentView(playingFrenemies);
 
     }
 
@@ -38,7 +40,7 @@ public class MainActivity extends Activity {
     protected void onStop() {
         super.onStop();
         while (true) {
-            playingPeaceGame.pause();
+            playingFrenemies.pause();
             break;
         }
         finish();
@@ -48,19 +50,19 @@ public class MainActivity extends Activity {
     @Override
     protected void onPause() {
         super.onPause();
-        playingPeaceGame.pause();
+        playingFrenemies.pause();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        playingPeaceGame.resume();
+        playingFrenemies.resume();
     }
 
 
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            playingPeaceGame.pause();
+            playingFrenemies.pause();
             finish();
             return true;
         }

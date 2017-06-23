@@ -23,6 +23,13 @@ public class PlayerBullet extends AnimatedSprite {
     protected Rect rectToBeDrawn;
     protected ArrayList<Bitmap> asteroids;
 
+    /** Constructor method gives properties to one of a kind bullet that the player is supposed to shoot at the enemies
+     * @param context
+     * @param screen_width
+     * @param screen_height
+     * @param x
+     * @param y
+     */
     public PlayerBullet(Context context, int screen_width, int screen_height,int x, int y) {
         super();
 

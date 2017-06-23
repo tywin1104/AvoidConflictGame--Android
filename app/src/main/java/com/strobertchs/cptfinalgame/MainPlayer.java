@@ -22,8 +22,14 @@ public class MainPlayer extends AnimatedSprite
     protected int numFrames;
     protected int framesPerRow;
     protected Rect rectToBeDrawn;
-    int score = 60;
+    private int score = 60;
 
+    /**
+     * Constructor method sets up properties for user to play the mainplayer with.
+     * @param context
+     * @param screen_height
+     * @param screen_width
+     */
     public MainPlayer(Context context, int screen_height, int screen_width)
     {
         super();
@@ -45,6 +51,23 @@ public class MainPlayer extends AnimatedSprite
 
     }
 
+    /**
+     * gets the score of the player. Used for safety reasons
+     * @return player's score
+     */
+    public int getScore()
+    {
+        return score;
+    }
+
+    /**
+     * modifies player's score
+     * @param newScore
+     */
+    public void setScore(int newScore)
+    {
+        score = newScore;
+    }
     /**
      * turn off horizontal movement flags
      */
@@ -94,7 +117,7 @@ public class MainPlayer extends AnimatedSprite
 
     /**
      * draw: draws the bullet to the canvas object
-     * @param source_canvas the canvas object to draw the bullet on
+     * @param source_canvas the canvas object to draw the player on
      */
     public void draw(Canvas source_canvas){
 
@@ -116,7 +139,7 @@ public class MainPlayer extends AnimatedSprite
      * @return
      */
     public String toString(){
-        return "BULLET--> x: " + Integer.toString(getPositionX()) + "  y: " + Integer.toString(getPositionY());
+        return "PLAYER--> x: " + Integer.toString(getPositionX()) + "  y: " + Integer.toString(getPositionY());
     }
 
 }

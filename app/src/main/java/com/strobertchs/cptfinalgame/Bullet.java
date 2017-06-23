@@ -23,6 +23,14 @@ public class Bullet extends AnimatedSprite {
     protected ArrayList<Bitmap> asteroids;
     boolean visible = true;
 
+    /**
+     * Constructor sets up nessescary properties for a bullet that an enemy is supposed to shoot
+     * @param context
+     * @param screen_width
+     * @param screen_height
+     * @param x
+     * @param y
+     */
     public Bullet(Context context, int screen_width, int screen_height,int x, int y) {
         super();
 
